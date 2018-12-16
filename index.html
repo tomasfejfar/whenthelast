@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.23.0/moment.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Since last</title>
+</head>
+<body class="container">
+<h1>Sincelast</h1>
+<div id="app">
+    <div id="timers" class="row">
+        <div v-for="timer in timers" class="col-md-3 timer" style="padding:.5em" :key="timer.id">
+
+            <div v-bind:style="{ backgroundColor: colorFromHue(timer.backgroundHue) }" style="cursor: pointer; padding:2.5%" v-on:click="actOnTimer(timer)">
+                <span @click="removeTimer(timer)" style="float:right">&times;</span>
+                <h4>{{ timer.title }}</h4>
+                <span v-if="timer.type === TYPES.timer">{{ since(timer.last) }}</span>
+                <span v-if="timer.type === TYPES.toggle">{{ timer.value }}</span>
+            </div>
+        </div>
+    </div>
+    <form class="newTimer">
+        <h2>Track something new</h2>
+        <div class="form-group">
+            <label for="new-title">Title</label>
+
+            <input id="new-title" class="new-timer form-control"
+                   autofocus autocomplete="off"
+                   placeholder="What do you want to track?"
+                   v-model="newTimer.title">
+        </div>
+        <div class="form-group">
+            <label for="new-type">Type</label>
+            <select id="new-type" v-model="newTimer.type" class="form-control">
+                <option :value="TYPES.timer">Timer</option>
+                <option :value="TYPES.toggle">Toggle</option>
+            </select>
+        </div>
+        <div class="form-group" v-if="newTimer.type === TYPES.toggle">
+            <label for="new-val1">Odd value</label>
+            <input id="new-val1" class="form-control" v-model="newTimer.value1">
+            <label for="new-val2">Even value</label>
+            <input id="new-val2" class="form-control" v-model="newTimer.value2">
+        </div>
+        <button class="btn btn-primary" @click="addTimer">Save</button>
+    </form>
+</div>
+</body>
+<script src="app.js"></script>
+</html>
