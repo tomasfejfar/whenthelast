@@ -62,7 +62,11 @@ const app = new Vue({
             this.newTimer = this.newTimerTemplate;
         },
         since: function (time) {
-            return moment(time).fromNow();
+            let duration = moment.duration(moment().diff(moment(time)));
+            if (duration.asHours() < 24) {
+                return moment().hours(duration.hours()).minutes(duration.minutes()).format('HH:mm');
+            }
+            return duration.humanize();
         },
         humanize: function (time) {
             return moment(time).format()
