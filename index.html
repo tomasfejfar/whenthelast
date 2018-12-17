@@ -44,7 +44,7 @@
             :key="timer.id"
         >
             <div
-                v-bind:style="{ backgroundColor: timer.color }"
+                v-bind:style="{ backgroundColor: cssColor(timer.color) }"
                 class="timer-inner"
                 v-on:click="actOnTimer(timer)"
             >

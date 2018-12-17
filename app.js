@@ -71,8 +71,8 @@ const app = new Vue({
         humanize: function (time) {
             return moment(time).format()
         },
-        colorFromHue: function (hue) {
-            return 'hsla(' + hue + ', 100%, 80%, 1)';
+        cssColor: function (color) {
+            return 'rgba(' + color._rgb.join(',') + ')';
         },
         randomColor: function () {
             this.newTimer.color = this.colors[Math.round(Math.random() * 30)];
