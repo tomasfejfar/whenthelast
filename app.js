@@ -112,8 +112,3 @@ const app = new Vue({
 setInterval(function() {
     app.$forceUpdate();
 }, 10000);
-
-window.onerror = function(msg, url, linenumber) {
-    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
-    return true;
-};
