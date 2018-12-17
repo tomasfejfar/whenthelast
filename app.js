@@ -44,6 +44,9 @@ const app = new Vue({
     },
     methods: {
         actOnTimer: function (timer) {
+            if (!confirm('Really?')) {
+                return;
+            }
             switch (timer.type) {
                 case TYPES.timer:
                     timer.last = moment().toISOString();
@@ -90,6 +93,9 @@ const app = new Vue({
             return moment().format();
         },
         reset: function () {
+            if (!confirm('Really?')) {
+                return;
+            }
             timersStorage.reset();
             this.timers = timersStorage.fetch();
         }
