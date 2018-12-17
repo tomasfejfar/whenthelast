@@ -41,11 +41,6 @@ const app = new Vue({
     },
     created: function () {
         this.newTimer = this.newTimerTemplate;
-        this.colors = new DistinctColors({
-            lightMin: 70,
-            lightMax: 95,
-            count: 99,
-        });
     },
     methods: {
         actOnTimer: function (timer) {
@@ -71,19 +66,12 @@ const app = new Vue({
         humanize: function (time) {
             return moment(time).format()
         },
-        cssColor: function (color) {
-            return 'rgba(' + color._rgb.join(',') + ')';
-        },
-        randomColor: function () {
-            this.newTimer.color = this.colors[Math.round(Math.random() * 30)];
-            this.$forceUpdate();
-        },
         addTimer: function () {
             const newTimer = this.newTimer;
             let timer = {
                 title: newTimer.title,
                 type: newTimer.type,
-                color: newTimer.color ? newTimer.color : this.colors[Math.round(Math.random() * 30)],
+                color: newTimer.color ? newTimer.color : '#ffffff',
             };
             if (newTimer.type === TYPES.timer) {
                 timer.last = moment().toISOString();
@@ -92,8 +80,8 @@ const app = new Vue({
                 timer.value = newTimer.value1;
             }
             this.newTimer = this.newTimerTemplate;
-            this.randomColor();
             this.timers.push(timer);
+            this.showModal = false;
         },
         removeTimer: function (timer) {
             this.timers.splice(this.timers.indexOf(timer), 1)
