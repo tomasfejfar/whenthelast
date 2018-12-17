@@ -90,7 +90,14 @@ const app = new Vue({
         },
         removeTimer: function (timer) {
             this.timers.splice(this.timers.indexOf(timer), 1)
-        }
+        },
+        now: function () {
+            return moment().format();
+        },
     },
     moment: moment
 });
+
+setInterval(function() {
+    app.$forceUpdate();
+}, 10000);
