@@ -24,7 +24,9 @@ const app = new Vue({
     data: {
         timers: timersStorage.fetch(),
         TYPES: TYPES,
-        newTimer: { type: TYPES.timer }
+        newTimer: {},
+        showModal: false,
+        newTimerTemplate: {type: TYPES.timer}
     },
     watch: {
         timers: {
@@ -32,7 +34,15 @@ const app = new Vue({
                 timersStorage.save(timers)
             },
             deep: true
-        }
+        },
+    },
+    created: function () {
+        this.newTimer = this.newTimerTemplate;
+        this.colors = new DistinctColors({
+            lightMin: 70,
+            lightMax: 95,
+            count: 99,
+        });
     },
     methods: {
         actOnTimer: function (timer) {
@@ -44,6 +54,10 @@ const app = new Vue({
                     timer.value = timer.values.filter(function(item) {return item !== timer.value})[0];
             }
         },
+        dismissModal: function (timer) {
+            this.showModal = false;
+            this.newTimer = this.newTimerTemplate;
+        },
         since: function (time) {
             return moment(time).fromNow();
         },
@@ -51,14 +65,18 @@ const app = new Vue({
             return moment(time).format()
         },
         colorFromHue: function (hue) {
-            return 'hsla(' + hue + ', 100%, 85%, 1)';
+            return 'hsla(' + hue + ', 100%, 80%, 1)';
+        },
+        randomColor: function () {
+            this.newTimer.color = this.colors[Math.round(Math.random() * 30)];
+            this.$forceUpdate();
         },
         addTimer: function () {
             const newTimer = this.newTimer;
             let timer = {
                 title: newTimer.title,
                 type: newTimer.type,
-                backgroundHue: Math.random() * 360,
+                color: newTimer.color ? newTimer.color : this.colors[Math.round(Math.random() * 30)],
             };
             if (newTimer.type === TYPES.timer) {
                 timer.last = moment().toISOString();
@@ -66,7 +84,8 @@ const app = new Vue({
                 timer.values = [newTimer.value1, newTimer.value2];
                 timer.value = newTimer.value1;
             }
-
+            this.newTimer = this.newTimerTemplate;
+            this.randomColor();
             this.timers.push(timer);
         },
         removeTimer: function (timer) {
