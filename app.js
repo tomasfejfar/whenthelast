@@ -11,6 +11,9 @@ const timersStorage = {
     },
     save: function (todos) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+    },
+    reset: function () {
+        localStorage.setItem(STORAGE_KEY, '[]');
     }
 };
 
@@ -94,6 +97,10 @@ const app = new Vue({
         now: function () {
             return moment().format();
         },
+        reset: function () {
+            timersStorage.reset();
+            this.timers = timersStorage.fetch();
+        }
     },
     moment: moment
 });
