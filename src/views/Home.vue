@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="timers">
+    <Timer
+        v-for="timer in timers"
+        v-bind:key="timer.id"
+        v-bind:timer="timer"
+    />
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Timer from "@/components/Timer.vue";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    Timer
+  },
+  computed: {
+    timers () {
+      return this.$store.state.timers;
+    }
   }
 };
 </script>
