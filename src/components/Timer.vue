@@ -10,22 +10,14 @@
 </template>
 
 <script>
-import TYPES from "@/components/Types.js";
+import TypesMixin from "@/components/TypesMixin.js";
 
 export default {
   name: "Timer",
   props: {
     timer: Object,
   },
-  computed: {
-    isTimer() {
-      return this.timer.type === TYPES.timer;
-    },
-    isToggle() {
-      return this.timer.type === TYPES.toggle;
-    },
-
-  }
+  mixins: [TypesMixin],
 };
 </script>
 
