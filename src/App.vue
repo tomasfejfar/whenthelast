@@ -1,29 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/add">Add timer</router-link>
-    </div>
-    <router-view />
+    <md-app>
+        <md-app-toolbar class="md-primary">
+          <span class="md-title" style="flex: 1;">When the last</span>
+          <md-button @click="$router.push('/add')">Add timer</md-button>
+          <md-button @click="$router.push('/')" class="md-primary">Home</md-button>
+        </md-app-toolbar>
+
+      <md-app-content>
+        <router-view/>
+      </md-app-content>
+    </md-app>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+  export default {
+    name: 'App',
+    data: () => ({
+    })
   }
-}
+</script>
+
+<style lang="scss">
 </style>

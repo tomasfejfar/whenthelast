@@ -1,40 +1,55 @@
 <template>
-  <div class="col-md-3 timer" :key="timer.id">
-    <div v-bind:style="{ backgroundColor: timer.color }" class="timer-inner">
-      <span style="float:right">&times;</span>
-      <h4>{{ timer.title }}</h4>
-      <span v-if="isTimer">{{ timer.last }}</span>
+  <md-card class="md-layout-item md-xsmall-size-100 md-elevation-6" :key="timer.id">
+    <md-card-header>{{ timer.title }}</md-card-header>
+    <md-card-content>
+      <span v-if="isTimer">{{ timer.last | timeSince }}</span>
       <span v-if="isToggle">{{ timer.value }}</span>
-    </div>
-  </div>
+    </md-card-content>
+    <md-card-actions>
+      <md-button @click="setTimer()" class="md-primary">Set</md-button>
+      <md-button>Delete</md-button>
+    </md-card-actions>
+  </md-card>
 </template>
 
 <script>
-import TypesMixin from "@/components/TypesMixin.js";
+  import TYPES from "@/components/Types.js";
+  import actions from "@/storeActions";
 
-export default {
-  name: "Timer",
-  props: {
-    timer: Object,
-  },
-  mixins: [TypesMixin],
-};
+  export default {
+    name: "Timer",
+    props: {
+      timer: Object,
+    },
+    computed: {
+      isTimer() {
+        return this.timer.type === TYPES.timer;
+      },
+      isToggle() {
+        return this.timer.type === TYPES.toggle;
+      },
+    },
+    methods: {
+      setTimer() {
+        this.$store.dispatch(actions.SET_TIMER, this.timer.id)
+      }
+    },
+    mounted: function () {
+      let vue = this;
+      if (this.timer.type === TYPES.timer) {
+        setInterval(function () {
+          vue.$forceUpdate();
+        }, 10000);
+      }
+    }
+  };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.timer {
-  cursor: pointer;
-  margin: 0.25em;
-}
-
-.timer-inner {
-  border-radius: 0.75em;
-  padding: 0.5em;
-}
-
-h1 {
-  color: white;
-  background: grey;
-}
+  .md-card {
+    max-width: 320px;
+    margin: 4px;
+    /*display: inline-block;
+    vertical-align: top;*/
+  }
 </style>

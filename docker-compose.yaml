@@ -1,8 +1,9 @@
 version: "3.3"
 
-services: 
+services:
   dev:
-    build: 
+    container_name: when-the-last
+    build:
       context: ./docker
       args:
         - YOUR_APP_WEB_HTTP_PORT=8080
@@ -18,7 +19,7 @@ services:
       # https://cli.vuejs.org/guide/mode-and-env.html#modes
       # development is used by vue-cli-service serve
       - NODE_ENV=development
-      # one way for hot reloading ... see above for details 
+      # one way for hot reloading ... see above for details
       - CHOKIDAR_USEPOLLING=true
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
