@@ -20,6 +20,5 @@ services:
       # development is used by vue-cli-service serve
       - NODE_ENV=development
       # one way for hot reloading ... see above for details
-      - CHOKIDAR_USEPOLLING=true
-      - CHOKIDAR_INTERVAL=100
+      - CHOKIDAR_USEPOLLING=false
       - YOUR_APP_WEB_HTTP_PORT=8080
