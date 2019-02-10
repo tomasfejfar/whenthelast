@@ -1,55 +1,47 @@
 <template>
-  <form novalidate class="md-layout" @submit.prevent="validateUser">
-    <md-card class="md-layout-item md-size-50 md-small-size-100">
+  <form novalidate @submit.prevent="validateUser">
+    <md-card class=" md-large-size-50 md-medium-size-100">
       <md-card-header>
-        <div class="md-title">Timer</div>
+        <div class="md-title">{{ form.type === types.toggle ? 'Toggle' : 'Timer' }}</div>
       </md-card-header>
 
       <md-card-content>
-        <div class="md-layout md-gutter">
-          <div class="md-layout-item md-small-size-100">
-            <md-field :class="getValidationClass('title')">
-              <label for="first-name">Title</label>
-              <md-input name="first-name" id="first-name" v-model="form.title"
-                        :disabled="sending"/>
+        <md-field :class="getValidationClass('title')">
+          <label for="first-name">Title</label>
+          <md-input name="first-name" id="first-name" v-model="form.title"
+                    :disabled="sending"/>
+        </md-field>
+        <md-field :class="getValidationClass('type')">
+          <label for="first-name">Type</label>
+          <md-select name="type" id="type" v-model="form.type"
+                     :disabled="sending">
+            <md-option :value="types.timer">Timer</md-option>
+            <md-option :value="types.toggle">Toggle</md-option>
+          </md-select>
+        </md-field>
+        <div class="md-layout md-gutter" v-show="form.type === types.toggle">
+
+          <div class="md-layout-item">
+
+            <md-field :class="getValidationClass('value1')">
+
+              <label for="value1">Odd value</label>
+              <md-input id="value1" v-model="form.value1" :disabled="sending"/>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100">
-            <md-field :class="getValidationClass('type')">
-              <label for="first-name">Type</label>
-              <md-select name="type" id="type" v-model="form.type"
-                         :disabled="sending">
-                <md-option :value="types.timer">Timer</md-option>
-                <md-option :value="types.toggle">Toggle</md-option>
-              </md-select>
+
+          <div class=" md-layout-item">
+            <md-field :class="getValidationClass('value2')">
+              <label for="value2">Even value</label>
+              <md-input id="value2" v-model="form.value2" :disabled="sending"/>
             </md-field>
-          </div>
-          <div class="md-layout md-gutter">
-
-            <div class="md-layout-item md-small-size-100">
-
-              <md-field :class="getValidationClass('value1')">
-
-                <label for="value1">Odd value</label>
-                <md-input id="value1" v-model="form.value1" :disabled="sending"/>
-              </md-field>
-            </div>
-
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('value2')">
-                <label for="value2">Even value</label>
-                <md-input id="value2" v-model="form.value2" :disabled="sending"/>
-              </md-field>
-            </div>
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('color')">
-                <label for="color">Color</label>
-                <md-input type="color" name="color" id="color" v-model="form.color"
-                          :disabled="sending"/>
-              </md-field>
-            </div>
           </div>
         </div>
+        <md-field :class="getValidationClass('color')">
+          <label for="color">Color</label>
+          <md-input type="color" name="color" id="color" v-model="form.color"
+                    :disabled="sending"/>
+        </md-field>
       </md-card-content>
 
       <md-progress-bar md-mode="indeterminate" v-if="sending"/>
@@ -113,9 +105,9 @@
         this.$v.$reset();
         this.form.title = null;
         this.form.type = null;
-        this.form.age = null;
-        this.form.gender = null;
-        this.form.email = null;
+        this.form.value1 = null;
+        this.form.value2 = null;
+        this.form.color = null;
       },
       saveUser() {
         this.sending = true;
