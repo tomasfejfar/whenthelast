@@ -60,6 +60,7 @@
   import TYPES from '@/components/Types.js';
   import {validationMixin} from 'vuelidate'
   import {required} from 'vuelidate/lib/validators'
+  import actions from '@/storeActions'
 
 
   export default {
@@ -112,13 +113,10 @@
       saveUser() {
         this.sending = true;
 
-        // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-          this.lastUser = `${this.form.title} ${this.form.type}`;
-          this.userSaved = true;
-          this.sending = false;
-          this.clearForm();
-        }, 1500)
+        this.$store.dispatch(actions.CREATE_TIMER, this.form);
+        this.timerSaved = true;
+        this.sending = false;
+        this.clearForm();
       },
       validateUser() {
         this.$v.$touch();
