@@ -3,45 +3,49 @@ import Vuex from "vuex"
 import {now} from "moment"
 import timersModel from "@/models/timers"
 import actions from "@/storeActions"
-import {v4 as uuid} from "uuid"
 import TYPES from '@/components/Types.js';
-
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: {},
     timers: {}
   },
   mutations: {
     setTimer(state, key) {
       let timer = state.timers[key];
       timer.history = timer.history || [];
-      timer.history.push(timer.last);
+      if (timer.last) {
+        timer.history.push(timer.last);
+      }
       timer.last = now();
     },
-    createTimer(state, timer) {
-      const newKey = uuid();
-      timer.id = newKey;
-      if (timer.type === TYPES.toggle) {
-        timer.last = timer.value1;
+    createTimer(state, {timerId, timerData}) {
+      console.log('mutation', timerId, timerData);
+      if (timerData.type === TYPES.toggle) {
+        timerData.last = timerData.value1;
       }
-      state.timers[newKey] = timer;
+      state.timers[timerId] = timerData;
     }
   },
   actions: {
-    setTimer({commit, state}, timerKey) {
-      commit(actions.SET_TIMER, timerKey);
-      timersModel.saveTimers(state.timers);
+    setTimer({commit, state}, timerId) {
+      console.log(timerId);
+      commit(actions.SET_TIMER, timerId);
+      timersModel.updateTimer(timerId, state.timers[timerId]);
     },
-    createTimer({commit, state}, timerData) {
-      console.log(timerData);
-      debugger;
-      commit(actions.CREATE_TIMER, timerData);
-      timersModel.saveTimers(state.timers);
+    async createTimer({commit, state}, timerData) {
+      console.log('action', timerData);
+      const timerId = await timersModel.createTimer();
+      commit(actions.CREATE_TIMER, {timerId, timerData});
+      timersModel.updateTimer(timerId, state.timers[timerId]);
     },
     loadTimers({state}) {
-      state.timers = timersModel.loadTimers();
-    }
+      timersModel.loadTimers((timers) => state.timers = timers);
+    },
+    updateUser (state, { user }) {
+      Vue.set(state, 'user', user)
+    },
   }
 });

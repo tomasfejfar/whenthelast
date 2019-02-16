@@ -1,9 +1,10 @@
 <template>
   <div class="timers md-layout md-gutter md-alignment-center-space-between">
     <Timer
-      v-for="timer in timers"
-      v-bind:key="timer.id"
+      v-for="(timer, timerKey) in timers"
+      v-bind:key="timerKey"
       v-bind:timer="timer"
+      v-bind:timerKey="timerKey"
     />
 
   </div>
@@ -21,6 +22,6 @@
     },
     computed: mapState([
       'timers'
-    ])
+    ]),
   };
 </script>

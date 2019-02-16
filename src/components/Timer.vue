@@ -1,5 +1,6 @@
 <template>
-  <md-card class="md-layout-item md-xsmall-size-100 md-elevation-6" :key="timer.id">
+  <md-card class="md-layout-item md-xsmall-size-100 md-elevation-6" :key="timerKey">
+
     <md-card-header>{{ timer.title }}</md-card-header>
     <md-card-content>
       <span v-if="isTimer">{{ timer.last | timeSince }}</span>
@@ -20,6 +21,7 @@
     name: "Timer",
     props: {
       timer: Object,
+      timerKey: String,
     },
     computed: {
       isTimer() {
@@ -31,7 +33,8 @@
     },
     methods: {
       setTimer() {
-        this.$store.dispatch(actions.SET_TIMER, this.timer.id)
+        console.log('in timer', this.timer, this.timerKey);
+        this.$store.dispatch(actions.SET_TIMER, this.timerKey)
       }
     },
     mounted: function () {

@@ -69,10 +69,10 @@
     data: () => ({
       form: {
         title: null,
-        type: null,
+        type: TYPES.timer,
         value1: null,
         value2: null,
-        color: "#fff",
+        color: "#ff0000",
       },
       types: TYPES,
       timerSaved: false,
@@ -102,21 +102,21 @@
           }
         }
       },
-      clearForm() {
+      /*clearForm() {
         this.$v.$reset();
         this.form.title = null;
-        this.form.type = null;
+        this.form.type = TYPES.timer;
         this.form.value1 = null;
         this.form.value2 = null;
-        this.form.color = null;
-      },
+        this.form.color = '#ff0000';
+      },*/
       saveUser() {
         this.sending = true;
-
+        console.log('form', this.form);
         this.$store.dispatch(actions.CREATE_TIMER, this.form);
         this.timerSaved = true;
         this.sending = false;
-        this.clearForm();
+        //this.clearForm();
       },
       validateUser() {
         this.$v.$touch();

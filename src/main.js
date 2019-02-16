@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-
+import {auth} from "@/firebase";
 Vue.config.productionTip = false;
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
@@ -11,8 +11,6 @@ import 'vue-material/dist/theme/default.css'
 import moment from 'moment'
 
 Vue.use(VueMaterial );
-
-
 
 Vue.filter('timeSince', function(time) {
   if (time) {
@@ -28,6 +26,15 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  created() {
+    auth.onAuthStateChanged((user) => {
+      if(!user) {
+        this.$router.go('/auth')
+      } else {
+        store.dispatch('loadTimers');
+      }
+    });
+  },
 }).$mount("#app");
 
-store.dispatch('loadTimers');
+
