@@ -8,4 +8,11 @@ var config = {
   storageBucket: "",
   messagingSenderId: "47917094003"
 };
-export default firebase.initializeApp(config);
+const app = firebase.initializeApp(config);
+const firestore = firebase.firestore();
+firestore.settings({timestampsInSnapshots: true});
+
+export {
+  app,
+  firestore,
+};
