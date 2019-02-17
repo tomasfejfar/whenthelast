@@ -2,7 +2,7 @@
   <div id="firebaseui-auth-container"></div>
 </template>
 <script>
-  import {auth, firebase} from '@/firebase';
+  import {auth, firebase} from '@/firebase_config';
   import firebaseui from 'firebaseui';
   import 'firebaseui/dist/firebaseui.css';
 

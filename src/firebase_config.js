@@ -1,4 +1,4 @@
-import firebase from "firebase";
+const firebase = require('firebase');
 
 var config = {
   apiKey: "AIzaSyBBiyl0p2rEfUmbMbUI9rEf8DLh-CS-FIU",
@@ -14,13 +14,13 @@ const firestore = firebase.firestore().enablePersistence()
     if (err.code === 'failed-precondition') {
       alert('You have when-the-last opened in multiple tabs. That is not supported')
     } else if (err.code === 'unimplemented') {
+      alert('Cannot use persistence');
       // The current browser does not support all of the
       // features required to enable persistence
       // ...
     }
-  });;
+  });
 const auth = firebase.auth();
-
 
 export {
   app,

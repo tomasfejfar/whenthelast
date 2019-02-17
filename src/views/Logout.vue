@@ -1,5 +1,5 @@
 <script>
-  import {auth} from '@/firebase.js'
+  import {auth} from '@/firebase_config.js'
   export default {
     data (){
       return {

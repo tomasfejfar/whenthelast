@@ -1,4 +1,4 @@
-import {auth, firestore} from '@/firebase'
+import {auth, firestore} from '@/firebase_config.js'
 
 const STORAGE_KEY = 'timers-vuejs-2.0';
 

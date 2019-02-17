@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-import {auth} from "@/firebase";
+import {auth} from "@/firebase_config";
 Vue.config.productionTip = false;
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
@@ -29,7 +29,7 @@ new Vue({
   created() {
     auth.onAuthStateChanged((user) => {
       if(!user) {
-        this.$router.go('/auth')
+        this.$router.replace('/auth')
       } else {
         store.dispatch('loadTimers');
       }
