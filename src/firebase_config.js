@@ -9,7 +9,8 @@ var config = {
   messagingSenderId: "47917094003"
 };
 const app = firebase.initializeApp(config);
-const firestore = firebase.firestore().enablePersistence()
+const firestore = firebase.firestore();
+firestore.enablePersistence()
   .catch(function(err) {
     if (err.code === 'failed-precondition') {
       alert('You have when-the-last opened in multiple tabs. That is not supported')
