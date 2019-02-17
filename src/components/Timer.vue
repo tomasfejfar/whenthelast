@@ -8,8 +8,27 @@
     </md-card-content>
     <md-card-actions>
       <md-button @click="setTimer()" class="md-primary">Set</md-button>
-      <md-button>Delete</md-button>
+
+      <md-button @click="showDialog = true" class="md-icon-button"><md-icon>history</md-icon></md-button>
+      <md-button @click="deleteTimer()" class="md-icon-button"><md-icon>clear</md-icon></md-button>
     </md-card-actions>
+      <md-dialog :md-active.sync="showDialog">
+        <md-dialog-title>History</md-dialog-title>
+
+        <ul v-if="isTimer && timer.history && timer.history.length">
+          <li v-for="past in timer.history" v-bind:key="past">{{past|humanize}} ({{ past| timeSince }} ago)</li>
+          <li>{{timer.last | humanize }} ({{ timer.last | timeSince}} ago)</li>
+        </ul>
+
+        <ul v-if="isToggle && timer.history && timer.history.length">
+          <li v-for="past in timer.history" v-bind:key="past.last">{{past.value }} ({{ past.last| timeSince }} ago)</li>
+          <li>{{timer.value }} ({{ timer.last | timeSince}} ago)</li>
+        </ul>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+        </md-dialog-actions>
+      </md-dialog>
   </md-card>
 </template>
 
@@ -18,11 +37,15 @@
   import actions from "@/storeActions";
 
   export default {
+
     name: "Timer",
     props: {
       timer: Object,
       timerKey: String,
     },
+    data: () => ({
+      showDialog: false
+    }),
     computed: {
       isTimer() {
         return this.timer.type === TYPES.timer;
@@ -33,8 +56,12 @@
     },
     methods: {
       setTimer() {
-        console.log('in timer', this.timer, this.timerKey);
         this.$store.dispatch(actions.SET_TIMER, this.timerKey)
+      },
+      deleteTimer() {
+        console.log('deleting componet', this.timerKey);
+
+        this.$store.dispatch(actions.DELETE_TIMER, this.timerKey)
       }
     },
     mounted: function () {

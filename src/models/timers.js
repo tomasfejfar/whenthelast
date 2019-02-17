@@ -31,8 +31,16 @@ const updateTimer = (timerId, timerData) => {
   return docRef.update(timerData);
 };
 
+const deleteTimer = (timerId) => {
+  const docRef = firestore
+    .collection('timers')
+    .doc(timerId);
+  return docRef.delete();
+};
+
 export default {
   createTimer,
   updateTimer,
+  deleteTimer,
   loadTimers
 }

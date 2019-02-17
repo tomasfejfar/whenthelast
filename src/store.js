@@ -16,27 +16,32 @@ export default new Vuex.Store({
     setTimer(state, key) {
       let timer = state.timers[key];
       timer.history = timer.history || [];
-      if (timer.last) {
-        timer.history.push(timer.last);
+
+      if (timer.type === TYPES.toggle) {
+        timer.history.push({value: timer.value, last: timer.last});
+        timer.value === timer.value1 ? timer.value = timer.value2 : timer.value = timer.value1;
+      } else {
+        if (timer.last) {
+          timer.history.push(timer.last);
+        }
       }
       timer.last = now();
+
     },
     createTimer(state, {timerId, timerData}) {
-      console.log('mutation', timerId, timerData);
-      if (timerData.type === TYPES.toggle) {
-        timerData.last = timerData.value1;
-      }
-      state.timers[timerId] = timerData;
+      timerData.last = now();
+      Vue.set(state.timers, timerId, timerData);
+    },
+    deleteTimer(state, timerId) {
+      Vue.delete(state.timers, timerId);
     }
   },
   actions: {
-    setTimer({commit, state}, timerId) {
-      console.log(timerId);
+    async setTimer({commit, state}, timerId) {
       commit(actions.SET_TIMER, timerId);
-      timersModel.updateTimer(timerId, state.timers[timerId]);
+      await timersModel.updateTimer(timerId, state.timers[timerId]);
     },
     async createTimer({commit, state}, timerData) {
-      console.log('action', timerData);
       const timerId = await timersModel.createTimer();
       commit(actions.CREATE_TIMER, {timerId, timerData});
       timersModel.updateTimer(timerId, state.timers[timerId]);
@@ -44,8 +49,12 @@ export default new Vuex.Store({
     loadTimers({state}) {
       timersModel.loadTimers((timers) => state.timers = timers);
     },
-    updateUser (state, { user }) {
+    updateUser(state, {user}) {
       Vue.set(state, 'user', user)
     },
+    deleteTimer({commit}, timerId) {
+      console.log('deleting', timerId);
+      timersModel.deleteTimer(timerId).then(commit(actions.DELETE_TIMER, timerId));
+    }
   }
 });

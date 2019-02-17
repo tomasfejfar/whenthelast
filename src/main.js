@@ -21,6 +21,11 @@ Vue.filter('timeSince', function(time) {
     return duration.humanize();
   }
 });
+Vue.filter('humanize', function(time) {
+  if (time) {
+    return moment(time).format('D. M. YYYY hh:mm:ss');
+  }
+});
 
 new Vue({
   router,

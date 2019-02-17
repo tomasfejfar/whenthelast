@@ -102,21 +102,22 @@
           }
         }
       },
-      /*clearForm() {
+      clearForm() {
         this.$v.$reset();
         this.form.title = null;
         this.form.type = TYPES.timer;
         this.form.value1 = null;
         this.form.value2 = null;
-        this.form.color = '#ff0000';
-      },*/
+        this.form.color = '#ffffff';
+      },
       saveUser() {
         this.sending = true;
         console.log('form', this.form);
-        this.$store.dispatch(actions.CREATE_TIMER, this.form);
+        this.$store.dispatch(actions.CREATE_TIMER, {...this.form});
         this.timerSaved = true;
         this.sending = false;
         //this.clearForm();
+        this.$router.push('/');
       },
       validateUser() {
         this.$v.$touch();
