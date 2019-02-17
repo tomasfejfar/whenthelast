@@ -12,8 +12,8 @@
       <md-button @click="setTimer()" class="md-primary">Set</md-button>
 
       <md-button @click="showDialog = true" class="md-icon-button"
-        ><md-icon>history</md-icon></md-button
-      >
+        ><md-icon>history</md-icon>
+      </md-button>
       <md-button @click="deleteTimer()" class="md-icon-button"
         ><md-icon>clear</md-icon></md-button
       >
