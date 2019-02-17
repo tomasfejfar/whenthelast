@@ -53,7 +53,6 @@ export default new Vuex.Store({
       Vue.set(state, 'user', user)
     },
     deleteTimer({commit}, timerId) {
-      console.log('deleting', timerId);
       timersModel.deleteTimer(timerId).then(commit(actions.DELETE_TIMER, timerId));
     }
   }

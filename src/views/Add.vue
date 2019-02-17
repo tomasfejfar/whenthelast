@@ -112,7 +112,6 @@
       },
       saveUser() {
         this.sending = true;
-        console.log('form', this.form);
         this.$store.dispatch(actions.CREATE_TIMER, {...this.form});
         this.timerSaved = true;
         this.sending = false;

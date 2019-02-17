@@ -24,7 +24,6 @@ const createTimer = () => {
 };
 
 const updateTimer = (timerId, timerData) => {
-  console.log('up', timerId, timerData);
   const docRef = firestore
     .collection('timers')
     .doc(timerId);

@@ -59,8 +59,6 @@
         this.$store.dispatch(actions.SET_TIMER, this.timerKey)
       },
       deleteTimer() {
-        console.log('deleting componet', this.timerKey);
-
         this.$store.dispatch(actions.DELETE_TIMER, this.timerKey)
       }
     },
