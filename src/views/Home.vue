@@ -6,22 +6,19 @@
       v-bind:timer="timer"
       v-bind:timerKey="timerKey"
     />
-
   </div>
 </template>
 
 <script>
-  // @ is an alias to /src
-  import Timer from "@/components/Timer.vue";
-  import { mapState } from 'vuex'
+// @ is an alias to /src
+import Timer from '@/components/Timer.vue';
+import { mapState } from 'vuex';
 
-  export default {
-    name: "home",
-    components: {
-      Timer
-    },
-    computed: mapState([
-      'timers'
-    ]),
-  };
+export default {
+  name: 'home',
+  components: {
+    Timer
+  },
+  computed: mapState(['timers'])
+};
 </script>

@@ -1,4 +1,4 @@
 export default {
-    timer: 1,
-    toggle: 2
+  timer: 1,
+  toggle: 2
 };

@@ -1,39 +1,36 @@
-import {auth, firestore} from '@/firebase_config.js'
+import { auth, firestore } from '@/firebase_config.js';
 
 const STORAGE_KEY = 'timers-vuejs-2.0';
 
-const loadTimers = (cb) => {
-  firestore.collection('timers').where("uid", "==", auth.currentUser.uid).get().then(
-    (snapshot) => {
+const loadTimers = cb => {
+  firestore
+    .collection('timers')
+    .where('uid', '==', auth.currentUser.uid)
+    .get()
+    .then(snapshot => {
       let result = {};
-      snapshot.docs.forEach(
-        doc => {
-          result[doc.id] =  doc.data();
-        }
-      );
+      snapshot.docs.forEach(doc => {
+        result[doc.id] = doc.data();
+      });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
       cb(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'));
     });
-
 };
 
 const createTimer = () => {
   return firestore
     .collection('timers')
-    .add({uid: auth.currentUser.uid}).then(docRef => docRef.id);
+    .add({ uid: auth.currentUser.uid })
+    .then(docRef => docRef.id);
 };
 
 const updateTimer = (timerId, timerData) => {
-  const docRef = firestore
-    .collection('timers')
-    .doc(timerId);
+  const docRef = firestore.collection('timers').doc(timerId);
   return docRef.update(timerData);
 };
 
-const deleteTimer = (timerId) => {
-  const docRef = firestore
-    .collection('timers')
-    .doc(timerId);
+const deleteTimer = timerId => {
+  const docRef = firestore.collection('timers').doc(timerId);
   return docRef.delete();
 };
 
@@ -42,4 +39,4 @@ export default {
   updateTimer,
   deleteTimer,
   loadTimers
-}
+};
