@@ -1,6 +1,6 @@
 import { auth, firestore } from '@/firebase_config.js';
 
-const STORAGE_KEY = 'timers-vuejs-2.0';
+const STORAGE_KEY = 'timers-vuejs-3.0';
 
 const loadTimers = cb => {
   firestore
