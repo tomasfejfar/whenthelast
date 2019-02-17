@@ -30,9 +30,9 @@
 
       <ul v-if="isToggle && timer.history && timer.history.length">
         <li v-for="past in timer.history" v-bind:key="past.last">
-          {{ past.value }} ({{ past.last | timeSince }} ago)
+          {{ past.value }} ({{ past.last | humanize }} - {{ past.last | timeSince }} ago)
         </li>
-        <li>{{ timer.value }} ({{ timer.last | timeSince }} ago)</li>
+        <li>{{ timer.value }} ({{ timer.last | humanize }} - {{ timer.last | timeSince }} ago)</li>
       </ul>
 
       <md-dialog-actions>
