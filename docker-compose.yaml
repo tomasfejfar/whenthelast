@@ -10,6 +10,7 @@ services:
     ports:
       - "8080:8080"
       - "8002:8000"  # only needed if using vue-cli UI
+      - "9005:9005" # firebase login
     volumes:
       - .:/app
     working_dir: /app

@@ -10,15 +10,14 @@ RUN apt-get -y update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-RUN yarn global add @vue/cli -g
+RUN yarn global add @vue/cli firebase-tools -g
 
 WORKDIR /path/in/container/your-app
 
-
-
 # Or just use EXPORT 8080
 EXPOSE ${YOUR_APP_WEB_HTTP_PORT}
-# If yout want use vue-cli UI you need to also EXPORT 8000 
+EXPOSE 9005
+# If yout want use vue-cli UI you need to also EXPORT 8000
 
 USER node
 
