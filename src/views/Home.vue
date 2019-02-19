@@ -19,6 +19,9 @@ export default {
   components: {
     Timer
   },
+  created: function() {
+    setInterval(() => this.$forceUpdate(), 60000);
+  },
   computed: mapState(['timers'])
 };
 </script>

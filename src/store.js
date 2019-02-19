@@ -29,9 +29,17 @@ export default new Vuex.Store({
       }
       timer.last = now();
     },
-    createTimer(state, { timerId, timerData }) {
-      timerData.last = now();
-      Vue.set(state.timers, timerId, timerData);
+    createTimer(state, { timerId, timer }) {
+      timer.last = now();
+      timer.history = [];
+      if (timer.type === TYPES.toggle) {
+        timer.value = timer.value1;
+        timer.history.push({ value: timer.value, last: timer.last });
+      } else {
+        timer.history.push(timer.last);
+      }
+
+      Vue.set(state.timers, timerId, timer);
     },
     deleteTimer(state, timerId) {
       Vue.delete(state.timers, timerId);
@@ -44,7 +52,7 @@ export default new Vuex.Store({
     },
     async createTimer({ commit, state }, timerData) {
       const timerId = await timersModel.createTimer();
-      commit(actions.CREATE_TIMER, { timerId, timerData });
+      commit(actions.CREATE_TIMER, { timerId, timer: timerData });
       timersModel.updateTimer(timerId, state.timers[timerId]);
     },
     loadTimers({ state }) {

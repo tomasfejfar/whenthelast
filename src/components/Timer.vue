@@ -1,6 +1,7 @@
 <template>
   <md-card
     class="md-layout-item md-xsmall-size-100 md-elevation-6"
+    :id="timerKey"
     :key="timerKey"
   >
     <md-card-header>{{ timer.title }}</md-card-header>
@@ -22,17 +23,21 @@
       <md-dialog-title>History</md-dialog-title>
 
       <ul v-if="isTimer && timer.history && timer.history.length">
-        <li v-for="past in timer.history" v-bind:key="past">
+        <li v-for="(past, index) in timer.history" v-bind:key="index">
           {{ past | humanize }} ({{ past | timeSince }} ago)
         </li>
         <li>{{ timer.last | humanize }} ({{ timer.last | timeSince }} ago)</li>
       </ul>
 
       <ul v-if="isToggle && timer.history && timer.history.length">
-        <li v-for="past in timer.history" v-bind:key="past.last">
-          {{ past.value }} ({{ past.last | humanize }} - {{ past.last | timeSince }} ago)
+        <li v-for="(past, index) in timer.history" v-bind:key="index">
+          {{ past.value }} ({{ past.last | humanize }} -
+          {{ past.last | timeSince }} ago)
         </li>
-        <li>{{ timer.value }} ({{ timer.last | humanize }} - {{ timer.last | timeSince }} ago)</li>
+        <li>
+          {{ timer.value }} ({{ timer.last | humanize }} -
+          {{ timer.last | timeSince }} ago)
+        </li>
       </ul>
 
       <md-dialog-actions>
