@@ -6,6 +6,7 @@ const loadTimers = cb => {
   firestore
     .collection('timers')
     .where('uid', '==', auth.currentUser.uid)
+    .orderBy('created')
     .get()
     .then(snapshot => {
       let result = {};

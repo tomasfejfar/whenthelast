@@ -30,6 +30,7 @@ export default new Vuex.Store({
       timer.last = now();
     },
     createTimer(state, { timerId, timer }) {
+      timer.created = now();
       timer.last = now();
       timer.history = [];
       if (timer.type === TYPES.toggle) {
