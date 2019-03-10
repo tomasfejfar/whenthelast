@@ -1,5 +1,8 @@
 <template>
-  <div class="timers md-layout md-gutter md-alignment-center-space-between">
+  <div
+    class="timers md-layout md-gutter md-alignment-center-space-between"
+    v-visibility-change="visibilityChange"
+  >
     <Timer
       v-for="(timer, timerKey) in timers"
       v-bind:key="timerKey"
@@ -19,9 +22,22 @@ export default {
   components: {
     Timer
   },
+  data: () => ({
+    interval: null
+  }),
   created: function() {
-    setInterval(() => this.$forceUpdate(), 60000);
+    this.interval = setInterval(() => this.$forceUpdate(), 60000);
   },
-  computed: mapState(['timers'])
+  computed: mapState(['timers']),
+  methods: {
+    visibilityChange(event) {
+      const document = event.target;
+      if (document.visibilityState === 'visible') {
+        this.interval = setInterval(() => this.$forceUpdate(), 60000);
+      } else {
+        clearInterval(this.interval);
+      }
+    }
+  }
 };
 </script>
