@@ -4,7 +4,6 @@ cache: yarn
 script:
     - yarn build
 
-
 deploy:
     on:
         branch: develop
