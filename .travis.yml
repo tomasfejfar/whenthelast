@@ -1,0 +1,13 @@
+language: node_js
+cache: yarn
+
+script:
+    - yarn build
+
+
+deploy:
+    on:
+        branch: develop
+    provider: firebase
+    token:
+        secure: "HW0A94ZJBsvGskF3rE9zBBnQMKqJ6UuRGsNKCciYwob3dMUou85hmr+8jH7W48kCTBkig0ntn/EE1sR+8SsdyXDEs9wwiN21RbUFIF8SKsERF/doH/mlojstlmNkWIK8SR4AbxRMJvjNTqkBkg6Iu+jMLJG7/6ytA4zo2a9sDu5hzMQ1AqNIdjzjMbelOzeUh9CCaRH17PWvMa17pG2YAWGKIa07qg999kqEAh8WKDFmgLOUmB845J31ZKxBKWuTCp1E1QE13cQHBPWgRtez4Z9yIUGZ+LlIs6sPrbWRweBSGvR3iGiA2/x0ZtCtThkEWZR1XwuxvnePzDZwup/1DuSgbvr4LKCb4Q7fPTX60R2XYAv/ghrJsBfdlrl3HcrID/ybqQmVyMlne+jgjAwl95XqsOXi6EGfvkgUzDfwZGUQYgEKDorhNdlZIWRgigpOQirUGB84hduXU0hb27VbB67PVN1lWlffouT0dVLBc7t/d8qIsakrGbxtPbV6RS/McyLubB4f7mJj/GbXh8f7VbL1dfUxlMG+nXblW4BC3HSKkdli6aN9U25Tv1SKIfyaF9s7DxuRMY8C3Pfa8nV6rW2hIbSEg7sMvZeKfShBqxAy2N6Khsv+c1py2s/DbYbU7YAlI2q2IJlwv29UqHta/BDGXIV4Ay/RuawKDyrIddg="
