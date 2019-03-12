@@ -1,12 +1,13 @@
 language: node_js
 node_js:
-    - '10'
+- '10'
 cache: yarn
 script:
-    - NODE_ENV=production yarn build
+- NODE_ENV=production yarn build
 deploy:
-    on:
-        branch: develop
-    provider: firebase
-    token:
-        secure: d3Ebi0OMmLpd6lSBPf/irhqtda1dqCRlBe6lfIWuO2XxEKsgrA30bel8DF5Ga2cAS2dmUMb/Wy9LAn2RPb2k2GrCByyvMQNwVzJqoMIplnIIGhf/qiTPwk/izAClpAMLdsw+WPHcK0puuqmON+woC+zRUZQoCIeodg7lo0cKi6kn4JoIZZw6k43VszgIiQxweFjn8NIAEZ8nEcG03CnnznEizawElph3eOmcXOO/I2D4Lazlsg8CyCBvJdG0SWgVnnb3zGYhZK1SD5rKuTAHM42ngHJS0jXa5ryJqh0flgrqH9MKG021+1jF4HgIgLV0iF8gzJGiRA1bj2HA3c4K9/o+qBZCiVvBQ6W2Hz7O9K6zxmU/HBI1uAn3X9lYl2I4iRzR0CooUU8cvZeqQ8HZuPAOrqQ9dF00qV/vWWJH5RB0iZYwDhfvJ1B1Yt9wZ/CFXPUyWuhZiHVu36M4ZYU9ymAvyuYwoYCT5nGTnmWfNJUP+MI52FGmZdbHFK4UzFzlaQMJcDwGxkzb6liS6Z3n5DDOrquugI72u3oWGSEvWmwsSpjUHv8Ac1XoPBCpNSDfexDEz/yRjDfOZ5umh/I5JcXHcm33SUWyHRl6tlqbTRbZKGTpT+vCbkk1XXtJx4i8EaD6Wc6q6UIvXvlgMjXyVFDhSL3Ax9LUOrIfmtEqhRw=
+  on:
+    branch: develop
+  provider: firebase
+  token:
+    secure: cjZqFISajO0pj+lHXd46k/wb7F0qnWqfG+6+BdoRzLqbwQVo2uFXBXf64tTt9NU4U6UhgxmOmySBkGV+JIKmrGUvX8Ti6yWjwlS9PtA2mqNo8efol+8PvqfFcsDD4gH3onAbj2NXIv2Gjcazs0IoTM40SyCTrHm+hvMe0ntjqk/ac55K3Vw6dwDJy3au9Y96ixPkTWh5oT55oH6Nmvcxj49yzpppw+bUoGuZ+gi3v8PQqxXtrKD91VkQRgnUDtD/mPIHnawMuM0rTEeA7e9n9I65RGoPTA90ntxphgimd0uDHRi77iAjduGkj7z6hoJuffEU4ABZ88znq+2L2pwkbDqokjqEFiEdH56N33JpFEEPd4afnw6jS3KQaJCEk9iaCoWIdy7UfIFkApyvYewpGwvR2Goi+S3iF2omNuE77p94IrCSyLoJ+9XnxeqMe89S7Rgr43ay3C606oCNo+LPtvXjzPvqGYPRUOGt+NgyFXZ8hVUyYTBpSXpbn76x3ikI7kFRP0WSqNPDpo40xChzscf5A/j/1SpByjCETbmSfdH9m0bOE/aXxHfi5xhFRvQgXzuKpZNSrJXC6YdymMFO1HWgPQRpj9iI5C4hkMaD4sReMBUoaWxDu0h1eBoPKbzG8dKLmOAEvtHNrSTCC4yKlw9AttZL6V0MSFFHskCskBw=
+  message: "Deploy $TRAVIS_COMMIT "
